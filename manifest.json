@@ -1,11 +1,11 @@
 {
-	"id": "sample-plugin",
-	"name": "Sample Plugin",
+	"id": "obsidian-note-placeholder",
+	"name": "Note Placeholder",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "Demonstrates some of the capabilities of the Obsidian API.",
-	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
+	"description": "Replaces text of note link to placeholder in view mode.",
+	"author": "XZSt4nce",
+	"authorUrl": "https://github.com/XZSt4nce",
+	"fundingUrl": "",
 	"isDesktopOnly": false
 }
