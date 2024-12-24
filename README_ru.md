@@ -2,7 +2,7 @@
 
 [Obsidian](https://obsidian.md) plugin developed by XZSt4nce
 
-[ [English](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/master/README.md) | Русский ]
+[ [English](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/README.md) | Русский ]
 
 С помощью Note Placeholder, вы можете добавить заполнитель, который будет автоматически подставлен в качестве имени ссылки в режиме просмотра.
 
@@ -12,15 +12,15 @@
 
 Вы можете добавить заполнитель для имени ссылки, добавив заметке свойство `placeholder`.
 
-![placeholderProperty](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/master/images/placeholderProperty.png)
+![placeholderProperty](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/images/placeholderProperty.png)
 
 Так что это:
 
-![noteLink](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/master/images/noteLink.png)
+![noteLink](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/images/noteLink.png)
 
 Будет отображено (в режиме просмотра) таким образом:
 
-![placeholderedNoteLink](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/master/images/placeholderedNoteLink.png)
+![placeholderedNoteLink](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/images/placeholderedNoteLink.png)
 
 ## Настройки
 
