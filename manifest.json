@@ -2,7 +2,7 @@
 	"id": "note-placeholder",
 	"name": "Note Placeholder",
 	"version": "1.0.0",
-	"minAppVersion": "0.15.0",
+	"minAppVersion": "1.7.7",
 	"description": "Replaces text of note link to placeholder in view mode.",
 	"author": "XZSt4nce",
 	"authorUrl": "https://github.com/XZSt4nce",
