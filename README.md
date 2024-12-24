@@ -2,7 +2,7 @@
 
 [Obsidian](https://obsidian.md) plugin developed by XZSt4nce
 
-[ English | [Русский](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/master/README_ru.md) ]
+[ English | [Русский](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/README_ru.md) ]
 
 With Note Placeholder, you can add text that will be automatically inserted in place of the link in view mode.
 
@@ -12,15 +12,15 @@ With Note Placeholder, you can add text that will be automatically inserted in p
 
 You can add a placeholder for the note link by adding the `placeholder` property to it.
 
-![placeholderProperty](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/master/images/placeholderProperty.png)
+![placeholderProperty](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/images/placeholderProperty.png)
 
 So this:
 
-![noteLink](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/master/images/noteLink.png)
+![noteLink](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/images/noteLink.png)
 
 Will be displayed (in view mode) like this:
 
-![placeholderedNoteLink](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/master/images/placeholderedNoteLink.png)
+![placeholderedNoteLink](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/images/placeholderedNoteLink.png)
 
 ## Settings
 
