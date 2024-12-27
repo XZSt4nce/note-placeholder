@@ -35,7 +35,7 @@ MIT License
 
 ## Bug Report, Feature Request
 
-If you find any bugs or have any feature requests, please report them on the GitHub Issues. Thank you!
+If you find any bugs or have any feature requests, please report them on the [GitHub Issues](https://github.com/XZSt4nce/note-placeholder/issues). Thank you!
 
 ## Changelog
 
@@ -50,7 +50,13 @@ Versions are controlled by the rule below.
 
 - Initial release
 - Add features
-  - Add button to add placeholder property
+  - Add button to add `placeholder` property
   - Add replacing link name to placeholder
   - Add feature that replaces all internal links to placeholder, even link has name
   - Add text to disable replacing link name to placeholder
+
+### 1.0.1
+
+- Refactoring:
+  - Settings Tab
+    - Using `Obsidian HTML Elements` instead of `innerHTML`
