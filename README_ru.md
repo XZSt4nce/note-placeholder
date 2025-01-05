@@ -22,12 +22,37 @@
 
 ![placeholderedNoteLink](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/images/placeholderedNoteLink.png)
 
+### Разделитель
+
+Вы можете указать разделитель для заголовков или конкретного блока, указав специальный заголовок `sep`
+
+**Пример 1**:
+
+Ссылка в режиме редактирования:
+
+![headerSource](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/images/headerSource.png)
+
+Ссылка в режиме просмотра:
+
+![headerView](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/images/headerView.png)
+
+**Пример 2**:
+
+Ссылка в режиме редактирования:
+
+![blockSource](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/images/blockSource.png)
+
+Ссылка в режиме просмотра:
+
+![blockView](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/images/blockView.png)
+
 ## Настройки
 
 - Use Link Name Instead Of Placeholder
-  - default on, but off when specified : заполнитель будет использован только в том случае, если имя ссылки не определено
-  - always off : заполнитель всегда будет использован в качестве имени ссылки
-- Text To Disable Placeholder : если вы вставите этот текст в качестве имени ссылки, будет отображено имя заметки (по умолчанию: !dp!)
+  - `default on, but off when specified` : заполнитель будет использован только в том случае, если имя ссылки не определено
+  - `always off` : заполнитель всегда будет использован в качестве имени ссылки
+- Text To Disable Placeholder : если вы вставите этот текст в качестве имени ссылки, будет отображено имя заметки (по умолчанию: `!dp!`)
+- Default headers separator : текст между заполнителем и заголовками/блоком (по умолчанию: ` > `)
 
 ## Лицензия
 
@@ -60,3 +85,22 @@ MIT License
 - Рефакторинг:
   - Вкладка настроек
     - Использование `Obsidian HTML Elements` вместо `innerHTML`
+
+### 2.0.0
+
+- Рефакторинг:
+  - Модуль заменителя представления
+  - Отдельный файл для типов
+  - Отдельный файл для модуля нахождения заметок
+  - Отдельный файл для отображения (Map) заметок
+  - Отдельный файл для парсера свойств
+- Добавлены функции
+  - Добавлена функция, которая разделяет заменитель и заголовки/блок. Не применяется при отключении заменителя или указании собственного имени ссылки
+  - Добавлен текст, который будет использоваться в качестве разделителя между заголовками/блоком
+  - Добавлен Map с заметками для быстрого поиска заметок
+  - Добавлены дополнительные уведомления в placeholderPropertyModal
+- Оптимизация
+  - Удален лишний парсер
+- Добавлены комментарии
+- Исправление ошибок
+  - Перезагрузка replacer процессора после изменения настроек

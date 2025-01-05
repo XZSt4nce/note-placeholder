@@ -22,12 +22,37 @@ Will be displayed (in view mode) like this:
 
 ![placeholderedNoteLink](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/images/placeholderedNoteLink.png)
 
+### Separator
+
+You can specify separator for a headers and a specific block by specifying the special header `sep`
+
+**Example 1**:
+
+Link in source mode:
+
+![headerSource](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/images/headerSource.png)
+
+Link in view mode:
+
+![headerView](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/images/headerView.png)
+
+**Пример 2**:
+
+Link in source mode:
+
+![blockSource](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/images/blockSource.png)
+
+Link in view mode:
+
+![blockView](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/images/blockView.png)
+
 ## Settings
 
 - Use Link Name Instead Of Placeholder
-  - default on, but off when specified : the placeholder will only be shown if the link name is not specified
-  - always off : the placeholder will always be shown instead of link name
-- Text To Disable Placeholder : if you insert this text as the link name, the note name will be displayed (default: !dp!)
+  - `default on, but off when specified` : the placeholder will only be shown if the link name is not specified
+  - `always off` : the placeholder will always be shown instead of link name
+- Text To Disable Placeholder : if you insert this text as the link name, the note name will be displayed (default: `!dp!`)
+- Default header separator : text between the placeholder and headers/block (default: ` > `)
 
 ## License
 
@@ -60,3 +85,22 @@ Versions are controlled by the rule below.
 - Refactoring:
   - Settings Tab
     - Using `Obsidian HTML Elements` instead of `innerHTML`
+
+### 2.0.0
+
+- Refactoring:
+  - View replacer module
+  - Separate file for types
+  - Separate file for note finder
+  - Separate file for note mapper
+  - Separate file for properties parser
+- Add features
+  - Add feature, that separates placeholder and headers/block. Does not apply when disabling the placeholder or specifying the name of the link.
+  - Add text to use as separator between headers/block
+  - Add note Map for quick notes search
+  - Add additional notices for placeholderPropertyModal
+- Optimization
+  - Deleted redundant parser
+- Add comments
+- Debug
+  - Reloading replacer processor after changing settings

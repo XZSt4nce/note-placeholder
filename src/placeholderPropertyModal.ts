@@ -20,6 +20,11 @@ export class PlaceholderPropertyModal extends Modal {
             return;
         }
 
+        if (file.extension !== "md") {
+            new Notice('Active file is not Markdown File.');
+            return;
+        }
+
         const metadata = this.app.metadataCache.getFileCache(file);
         this.placeholderPropertyValue = metadata?.frontmatter?.placeholder || '';
 
@@ -56,6 +61,7 @@ export class PlaceholderPropertyModal extends Modal {
         if (file) {
             await this.app.fileManager.processFrontMatter(file, (frontmatter) => {
                 frontmatter.placeholder = this.placeholderPropertyValue;
+                new Notice(`Added placeholder property (${this.placeholderPropertyValue}) for file ${file.basename}`);
             });
         }
         this.close();
