@@ -16,17 +16,41 @@ export class Replacer {
         this.noteFinder = new NoteFinder(notePlaceholderPlugin);
     }
 
+    getInNoteAndOutNoteLinks(links: NodeListOf<Element>): { inNoteLinks: Element[], outNoteLinks: Element[] } {
+        const inNoteLinks: Element[] = [];
+        const outNoteLinks: Element[] = [];
+        for (let i = 0; i < links.length; i++) {
+            const link = links[i];
+            const hrefAttribute = link.getAttribute('href');
+            if (hrefAttribute) {
+                const [href, ...headers]: string[] = hrefAttribute.split(/(?<!\\)#/);
+                if (href) {
+                    outNoteLinks.push(link);
+                } else {
+                    inNoteLinks.push(link);
+                }
+            }
+        }
+        return { inNoteLinks, outNoteLinks };
+    }
+
     /**
      * Replaces internal links of note in view mode
      * @param element HTML element of note
      */
     async replaceLinkNames(element: HTMLElement) {
         const links = this.getInternalLinks(element);
-        const notes = this.noteFinder.getNotes(links);
+        const { inNoteLinks, outNoteLinks } = this.getInNoteAndOutNoteLinks(links); // ToDo: inNoteLinks надо обрабатывать по-другому
+        const notes = this.noteFinder.getNotes(outNoteLinks);
 
-        const views = await Promise.all(notes.map(note => this.getLinkView(note)));
+        const noteViews = await Promise.all(notes.map(note => this.getNoteView(note)));
         notes.forEach((note, index) => {
-            note.link.textContent = views[index];
+            note.link.textContent = noteViews[index];
+        });
+
+        const linkViews = await Promise.all(inNoteLinks.map(link => this.getLinkView(link)));
+        inNoteLinks.forEach((link, index) => {
+            link.textContent = linkViews[index];
         });
     }
 
@@ -49,11 +73,34 @@ export class Replacer {
         }
     }
 
+    async getLinkView(link: Element): Promise<string> {
+        const hrefAttribute = link.getAttribute('href');
+        if (hrefAttribute) {
+            const [href, ...headers] = hrefAttribute.split('#');
+            const { specialHeaders, nonSpecialHeaders } = this.parseSpecialHeaders(headers);
+            const settings: NotePlaceholderSettings = this.plugin.settings || DEFAULT_SETTINGS;
+
+            // Specified separator or default separator
+            const headerSeparator = specialHeaders.sep ?? settings.defaultHeaderSeparator;
+
+            const blockHeaders = nonSpecialHeaders.filter((value: string) => value.startsWith('^')).length;
+
+            // Remove the `^` character in the block header
+            if (blockHeaders === 1 && nonSpecialHeaders.length === 1) {
+                nonSpecialHeaders[0] = nonSpecialHeaders[0].slice(1);
+            }
+
+            return nonSpecialHeaders.join(headerSeparator);
+        }
+
+        return "VIEW_ERROR";
+    }
+
     /**
      * @param note Special note struct {@link NoteLink}
      * @returns New string that represents an internal link
      */
-    async getLinkView(note: NoteLink): Promise<string> {
+    async getNoteView(note: NoteLink): Promise<string> {
         const linkName = note.link.textContent;
         const placeholder = await this.getPlaceholderProperty(note.file);
         if (linkName) {

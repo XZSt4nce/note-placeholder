@@ -104,3 +104,10 @@ Versions are controlled by the rule below.
 - Add comments
 - Debug
   - Reloading replacer processor after changing settings
+
+### 2.1.0
+
+- Refactoring
+  - lookbehind, which is not supported on iOS versions earlier than 16.4, has been removed from noteFinder.
+- Add features
+  - Handling internal links that don't link to notes

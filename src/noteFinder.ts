@@ -14,7 +14,7 @@ export class NoteFinder {
      * @param links Internal links of note
      * @returns List of special note structs {@link NoteLink}
      */
-    getNotes(links: NodeListOf<Element>): NoteLink[] {
+    getNotes(links: Element[]): NoteLink[] {
         const notes: NoteLink[] = [];
 
         for (let i = 0; i < links.length; i++) {
@@ -34,7 +34,8 @@ export class NoteFinder {
     getNote(link: Element): NoteLink | undefined {
         const hrefAttribute = link.getAttribute('href');
         if (hrefAttribute) {
-            const [href, ...headers]: string[] = hrefAttribute.split(/(?<!\\)#/);
+            const tempMarker = "|~~~|"
+            const [href, ...headers]: string[] = hrefAttribute.replace(/\\#/g, tempMarker).split("#").map(el => el.replace(tempMarker, '\\#'));
             const fileName = href + '.md';
             let file: TFile | undefined = this.noteMapper.getFileByName(fileName);
 
