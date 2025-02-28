@@ -16,6 +16,10 @@ export class Replacer {
         this.noteFinder = new NoteFinder(notePlaceholderPlugin);
     }
 
+    /**
+     * @param links All internal links of note
+     * @returns Object with in-note links (without href, only headers) and out-note links
+     */
     getInNoteAndOutNoteLinks(links: NodeListOf<Element>): { inNoteLinks: Element[], outNoteLinks: Element[] } {
         const inNoteLinks: Element[] = [];
         const outNoteLinks: Element[] = [];
@@ -23,7 +27,8 @@ export class Replacer {
             const link = links[i];
             const hrefAttribute = link.getAttribute('href');
             if (hrefAttribute) {
-                const [href, ...headers]: string[] = hrefAttribute.split(/(?<!\\)#/);
+                const tempMarker = "|~~~|"
+                const [href]: string[] = hrefAttribute.replace(/\\#/g, tempMarker).split("#").map(el => el.replace(tempMarker, '\\#'));
                 if (href) {
                     outNoteLinks.push(link);
                 } else {
@@ -40,7 +45,7 @@ export class Replacer {
      */
     async replaceLinkNames(element: HTMLElement) {
         const links = this.getInternalLinks(element);
-        const { inNoteLinks, outNoteLinks } = this.getInNoteAndOutNoteLinks(links); // ToDo: inNoteLinks надо обрабатывать по-другому
+        const { inNoteLinks, outNoteLinks } = this.getInNoteAndOutNoteLinks(links);
         const notes = this.noteFinder.getNotes(outNoteLinks);
 
         const noteViews = await Promise.all(notes.map(note => this.getNoteView(note)));
@@ -64,7 +69,7 @@ export class Replacer {
 
     /**
      * @param file File of note
-     * @returns `placeholder` property of note if it exists
+     * @returns `placeholder` property of the note if it exists
      */
     async getPlaceholderProperty(file: TFile): Promise<string | undefined> {
         const properties = await this.propertiesParser.parseNoteProperties(file);
@@ -73,10 +78,14 @@ export class Replacer {
         }
     }
 
+    /**
+     * @param link In-note link without href (only headers)
+     * @returns New string that represents an internal link
+     */
     async getLinkView(link: Element): Promise<string> {
         const hrefAttribute = link.getAttribute('href');
         if (hrefAttribute) {
-            const [href, ...headers] = hrefAttribute.split('#');
+            const [, ...headers] = hrefAttribute.split('#');
             const { specialHeaders, nonSpecialHeaders } = this.parseSpecialHeaders(headers);
             const settings: NotePlaceholderSettings = this.plugin.settings || DEFAULT_SETTINGS;
 
@@ -142,6 +151,7 @@ export class Replacer {
 
     /**
      * Parses special headers from a list of strings
+     * @dev Special header framed by `!`
      * @example
      * ```
      * // Returns {test1: "Foo", test2: "Bar"}:

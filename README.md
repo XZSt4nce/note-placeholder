@@ -108,6 +108,14 @@ Versions are controlled by the rule below.
 ### 2.1.0
 
 - Refactoring
-  - lookbehind, which is not supported on iOS versions earlier than 16.4, has been removed from noteFinder.
+  - lookbehind, which is not supported on iOS versions earlier than 16.4, has been removed from noteFinder
 - Add features
   - Handling internal links that don't link to notes
+
+### 2.1.1
+
+- Refactoring
+  - Add code documentation
+  - Removed ToDo comments
+  - lookbehind, which is not supported on iOS versions earlier than 16.4, has been removed from replacer
+  - Type conversion has been removed in noteMapper, type checking via instanceOf has been added

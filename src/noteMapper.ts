@@ -49,7 +49,7 @@ export class NoteMapper {
      */
     handleFileCreate(file: TAbstractFile) {
         if (file instanceof TFile && file.extension === 'md') {
-            const markdownFile = file as TFile; // Type assertion
+            const markdownFile = file;
             this.notesMap.set(markdownFile.name, markdownFile);
         }
     }
