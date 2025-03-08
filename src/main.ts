@@ -18,7 +18,7 @@ export default class NotePlaceholderPlugin extends Plugin {
 		await this.loadSettings();
 
 		// This creates an icon in the left ribbon that adds `placeholder` property to a note.
-		this.addRibbonIcon('any-key', 'Add Placeholder', () => {
+		this.addRibbonIcon('any-key', 'Add placeholder', () => {
 			// Called when the user clicks the icon.
 			new PlaceholderPropertyModal(this.app).open();
 		});

@@ -24,10 +24,8 @@ export class PlaceholderSettingTab extends PluginSettingTab {
 
         containerEl.empty();
 
-        containerEl.createEl("h1", { text: "Note Placeholder" });
-
         new Setting(containerEl)
-            .setName('Use Link Name Instead Of Placeholder')
+            .setName('Use link name instead of placeholder')
             .setDesc(this.settingItems([
                 { item: Options.DNFS, description: "the placeholder will only be shown if the link name is not specified" },
                 { item: Options.AF, description: "the placeholder will always be shown instead of link name" }
@@ -45,7 +43,7 @@ export class PlaceholderSettingTab extends PluginSettingTab {
             );
 
         new Setting(containerEl)
-            .setName('Text To Disable Placeholder')
+            .setName('Text to disable placeholder')
             .setDesc(`If you pass this text to the link as a name, then the placeholder will not be used and the name of the note will be displayed`)
             .addText(tc =>
                 tc.setValue(this.plugin.settings.textToDisablePlaceholder)

@@ -119,3 +119,11 @@ Versions are controlled by the rule below.
   - Removed ToDo comments
   - lookbehind, which is not supported on iOS versions earlier than 16.4, has been removed from replacer
   - Type conversion has been removed in noteMapper, type checking via instanceOf has been added
+
+### 2.1.2
+
+- Refactoring
+  - Using "Sentence case" instead of "Title Case" in user interface (UI)
+  - Using MetadataCache API instead of js-yaml
+  - The header with the name of the plugin has been removed from the settings
+  - Fixed a special `sep` header for in-note links

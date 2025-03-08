@@ -4,11 +4,13 @@ import NotePlaceholderPlugin from "./main";
 import { PropertiesParser } from "./propertiesParser";
 import { NoteLink, SpecialHeaders } from "./types";
 import { NoteFinder } from "./noteFinder";
+import { Utils } from "./utils";
 
 export class Replacer {
     plugin: NotePlaceholderPlugin
     propertiesParser: PropertiesParser
     noteFinder: NoteFinder;
+    utils: Utils = new Utils();
 
     constructor(notePlaceholderPlugin: NotePlaceholderPlugin) {
         this.plugin = notePlaceholderPlugin;
@@ -85,7 +87,7 @@ export class Replacer {
     async getLinkView(link: Element): Promise<string> {
         const hrefAttribute = link.getAttribute('href');
         if (hrefAttribute) {
-            const [, ...headers] = hrefAttribute.split('#');
+            const headers = this.utils.splitHeadersWithEscapedSymbols(hrefAttribute);
             const { specialHeaders, nonSpecialHeaders } = this.parseSpecialHeaders(headers);
             const settings: NotePlaceholderSettings = this.plugin.settings || DEFAULT_SETTINGS;
 

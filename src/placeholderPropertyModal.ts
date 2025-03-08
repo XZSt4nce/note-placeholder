@@ -12,7 +12,7 @@ export class PlaceholderPropertyModal extends Modal {
     onOpen() {
         const { contentEl } = this;
 
-        contentEl.createEl('h2', { text: 'Placeholder Property' });
+        new Setting(contentEl).setName('Placeholder property').setHeading();
 
         const file = this.app.workspace.getActiveFile();
         if (!file) {
@@ -30,7 +30,7 @@ export class PlaceholderPropertyModal extends Modal {
 
 
         new Setting(contentEl)
-            .setName('Placeholder Property Value')
+            .setName('Placeholder property value')
             .addText(text => {
                 text.setPlaceholder('Enter placeholder property value')
                     .setValue(this.placeholderPropertyValue)
