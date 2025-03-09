@@ -2,7 +2,7 @@ import { App, Modal, Setting, Notice, TFile } from 'obsidian';
 
 
 export class PlaceholderPropertyModal extends Modal {
-    placeholderPropertyValue: string;
+    private placeholderPropertyValue: string;
 
     constructor(app: App) {
         super(app);
@@ -17,17 +17,18 @@ export class PlaceholderPropertyModal extends Modal {
         const file = this.app.workspace.getActiveFile();
         if (!file) {
             new Notice('No active file found.');
+            this.close();
             return;
         }
 
-        if (file.extension !== "md") {
+        if (file.extension !== 'md') {
             new Notice('Active file is not Markdown File.');
+            this.close();
             return;
         }
 
         const metadata = this.app.metadataCache.getFileCache(file);
         this.placeholderPropertyValue = metadata?.frontmatter?.placeholder || '';
-
 
         new Setting(contentEl)
             .setName('Placeholder property value')

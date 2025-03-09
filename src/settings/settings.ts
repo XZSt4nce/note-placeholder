@@ -1,8 +1,8 @@
 export const Options = {
-	DNFS: "default on, but off when specified",
-	DFNS: "default off, but on when specified",
-	AN: "always on",
-	AF: "always off"
+	DNFS: 'default on, but off when specified',
+	DFNS: 'default off, but on when specified',
+	AN: 'always on',
+	AF: 'always off'
 };
 
 export interface NotePlaceholderSettings {
@@ -27,6 +27,6 @@ export interface NotePlaceholderSettings {
 
 export const DEFAULT_SETTINGS: NotePlaceholderSettings = {
 	useLinkNameInsteadOfPlaceholder: Options.DNFS,
-	textToDisablePlaceholder: "!dp!",
-	defaultHeaderSeparator: " > "
+	textToDisablePlaceholder: '!dp!',
+	defaultHeaderSeparator: ' > '
 };

@@ -1,15 +1,10 @@
-import { PluginSettingTab, Setting } from "obsidian";
-import NotePlaceholderPlugin from "./main";
-import { Options } from "./settings";
-
-
-type SettingItem = {
-    item: string; // Name of setting item
-    description: string; // Description of setting item
-};
+import { PluginSettingTab, Setting } from 'obsidian';
+import NotePlaceholderPlugin from 'src/main';
+import { NotePlaceholderSettings, Options } from './settings';
+import { SettingItem } from 'src/types';
 
 export class PlaceholderSettingTab extends PluginSettingTab {
-    plugin: NotePlaceholderPlugin;
+    private plugin: NotePlaceholderPlugin;
 
     constructor(plugin: NotePlaceholderPlugin) {
         super(plugin.app, plugin);
@@ -27,13 +22,13 @@ export class PlaceholderSettingTab extends PluginSettingTab {
         new Setting(containerEl)
             .setName('Use link name instead of placeholder')
             .setDesc(this.settingItems([
-                { item: Options.DNFS, description: "the placeholder will only be shown if the link name is not specified" },
-                { item: Options.AF, description: "the placeholder will always be shown instead of link name" }
+                { item: Options.DNFS, description: 'the placeholder will only be shown if the link name is not specified' },
+                { item: Options.AF, description: 'the placeholder will always be shown instead of link name' }
             ]))
             .addDropdown(tc =>
                 tc.addOptions({
-                    "default on, but off when specified": Options.DNFS,
-                    "always off": Options.AF,
+                    'default on, but off when specified': Options.DNFS,
+                    'always off': Options.AF,
                 })
                     .setValue(this.plugin.settings.useLinkNameInsteadOfPlaceholder)
                     .onChange(async (value: (typeof Options.DNFS | typeof Options.AF)) => {
@@ -74,7 +69,7 @@ export class PlaceholderSettingTab extends PluginSettingTab {
         return createFragment((frag) => {
             for (let item of items) {
                 const container = frag.createDiv();
-                container.createEl("b", { text: item.item });
+                container.createEl('b', { text: item.item });
                 container.createSpan({ text: ` : ${item.description}` });
             }
         });

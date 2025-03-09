@@ -1,94 +1,80 @@
-import { TFile } from "obsidian";
-import { DEFAULT_SETTINGS, NotePlaceholderSettings } from "./settings";
-import NotePlaceholderPlugin from "./main";
-import { PropertiesParser } from "./propertiesParser";
-import { NoteLink, SpecialHeaders } from "./types";
-import { NoteFinder } from "./noteFinder";
-import { Utils } from "./utils";
+import { MetadataCache, TFile } from 'obsidian';
+import { DEFAULT_SETTINGS, NotePlaceholderSettings } from './settings/settings';
+import NotePlaceholderPlugin from 'src/main';
+import { InternalLinks, NoteLink } from './types';
+import { splitHeadersWithEscapedSymbols, getInternalLinks, parseSpecialHeaders, getNotes } from './utils';
 
 export class Replacer {
-    plugin: NotePlaceholderPlugin
-    propertiesParser: PropertiesParser
-    noteFinder: NoteFinder;
-    utils: Utils = new Utils();
+    private plugin: NotePlaceholderPlugin;
 
-    constructor(notePlaceholderPlugin: NotePlaceholderPlugin) {
-        this.plugin = notePlaceholderPlugin;
-        this.propertiesParser = new PropertiesParser(notePlaceholderPlugin.app);
-        this.noteFinder = new NoteFinder(notePlaceholderPlugin);
+    constructor(plugin: NotePlaceholderPlugin) {
+        this.plugin = plugin;
     }
 
     /**
-     * @param links All internal links of note
-     * @returns Object with in-note links (without href, only headers) and out-note links
+     * @param {NodeListOf<Element>} links All internal links of note
+     * @returns {InternalLinks} Object with block links and note links
      */
-    getInNoteAndOutNoteLinks(links: NodeListOf<Element>): { inNoteLinks: Element[], outNoteLinks: Element[] } {
-        const inNoteLinks: Element[] = [];
-        const outNoteLinks: Element[] = [];
+    getBlockAndNoteLinks(links: NodeListOf<Element>): InternalLinks {
+        const blockLinks: Element[] = [];
+        const noteLinks: Element[] = [];
         for (let i = 0; i < links.length; i++) {
             const link = links[i];
             const hrefAttribute = link.getAttribute('href');
             if (hrefAttribute) {
-                const tempMarker = "|~~~|"
-                const [href]: string[] = hrefAttribute.replace(/\\#/g, tempMarker).split("#").map(el => el.replace(tempMarker, '\\#'));
+                const tempMarker = '|~~~|'
+                const [href]: string[] = hrefAttribute.replace(/\\#/g, tempMarker).split('#').map(el => el.replace(tempMarker, '\\#'));
                 if (href) {
-                    outNoteLinks.push(link);
+                    noteLinks.push(link);
                 } else {
-                    inNoteLinks.push(link);
+                    blockLinks.push(link);
                 }
             }
         }
-        return { inNoteLinks, outNoteLinks };
+        return { blockLinks, noteLinks };
     }
 
     /**
      * Replaces internal links of note in view mode
-     * @param element HTML element of note
+     * @param {HTMLElement} element HTML element of note
      */
     async replaceLinkNames(element: HTMLElement) {
-        const links = this.getInternalLinks(element);
-        const { inNoteLinks, outNoteLinks } = this.getInNoteAndOutNoteLinks(links);
-        const notes = this.noteFinder.getNotes(outNoteLinks);
+        const links = getInternalLinks(element);
+        const { blockLinks, noteLinks } = this.getBlockAndNoteLinks(links);
+        const notes = getNotes(this.plugin.notesMap, noteLinks);
 
-        const noteViews = await Promise.all(notes.map(note => this.getNoteView(note)));
+        const noteViews = notes.map(note => this.getNoteLinkView(note));
         notes.forEach((note, index) => {
             note.link.textContent = noteViews[index];
         });
 
-        const linkViews = await Promise.all(inNoteLinks.map(link => this.getLinkView(link)));
-        inNoteLinks.forEach((link, index) => {
+        const linkViews = blockLinks.map(link => this.getBlockLinkView(link));
+        blockLinks.forEach((link, index) => {
             link.textContent = linkViews[index];
         });
     }
 
     /**
-     * @param element HTML element of note
-     * @returns List of internal link (like `[[MyNote]]`) elements in HTML format
+     * @param {TFile} file File of note
+     * @returns {string|undefined} `placeholder` property of the note if it exists
      */
-    getInternalLinks(element: HTMLElement): NodeListOf<Element> {
-        return element.querySelectorAll('a.internal-link');
-    }
-
-    /**
-     * @param file File of note
-     * @returns `placeholder` property of the note if it exists
-     */
-    async getPlaceholderProperty(file: TFile): Promise<string | undefined> {
-        const properties = await this.propertiesParser.parseNoteProperties(file);
-        if (properties) {
-            return properties['placeholder'];
+    getPlaceholderProperty(file: TFile): string | undefined {
+        const cache = this.plugin.app.metadataCache.getFileCache(file);
+        const frontmatter = cache?.frontmatter;
+        if (frontmatter) {
+            return frontmatter.placeholder;
         }
     }
 
     /**
-     * @param link In-note link without href (only headers)
-     * @returns New string that represents an internal link
+     * @param {string} link Block link
+     * @returns {Promise<string>} New string that represents an internal link
      */
-    async getLinkView(link: Element): Promise<string> {
+    getBlockLinkView(link: Element): string {
         const hrefAttribute = link.getAttribute('href');
         if (hrefAttribute) {
-            const headers = this.utils.splitHeadersWithEscapedSymbols(hrefAttribute);
-            const { specialHeaders, nonSpecialHeaders } = this.parseSpecialHeaders(headers);
+            const headers = splitHeadersWithEscapedSymbols(hrefAttribute);
+            const { specialHeaders, nonSpecialHeaders } = parseSpecialHeaders(headers);
             const settings: NotePlaceholderSettings = this.plugin.settings || DEFAULT_SETTINGS;
 
             // Specified separator or default separator
@@ -104,24 +90,24 @@ export class Replacer {
             return nonSpecialHeaders.join(headerSeparator);
         }
 
-        return "VIEW_ERROR";
+        return 'VIEW_ERROR';
     }
 
     /**
-     * @param note Special note struct {@link NoteLink}
-     * @returns New string that represents an internal link
+     * @param {NoteLink} note
+     * @returns {string} New string that represents an internal link
      */
-    async getNoteView(note: NoteLink): Promise<string> {
+    getNoteLinkView(note: NoteLink): string {
         const linkName = note.link.textContent;
-        const placeholder = await this.getPlaceholderProperty(note.file);
+        const placeholder = this.getPlaceholderProperty(note.file);
         if (linkName) {
             const settings: NotePlaceholderSettings = this.plugin.settings || DEFAULT_SETTINGS;
             const hrefAttribute = note.link.getAttribute('href');
 
             const noName = linkName === hrefAttribute?.replace(/#/g, ' > ');
-            const namesOff = settings.useLinkNameInsteadOfPlaceholder === "always off";
+            const namesOff = settings.useLinkNameInsteadOfPlaceholder === 'always off';
             const disablePlaceholder = settings.textToDisablePlaceholder === linkName;
-            const { specialHeaders, nonSpecialHeaders } = this.parseSpecialHeaders(note.headers);
+            const { specialHeaders, nonSpecialHeaders } = parseSpecialHeaders(note.headers);
 
             // Specified separator or default separator
             const headerSeparator = specialHeaders.sep ?? settings.defaultHeaderSeparator;
@@ -148,39 +134,6 @@ export class Replacer {
             }
         }
 
-        return "VIEW_ERROR";
-    }
-
-    /**
-     * Parses special headers from a list of strings
-     * @dev Special header framed by `!`
-     * @example
-     * ```
-     * // Returns {test1: "Foo", test2: "Bar"}:
-     * getSpecialHeaderContent(["!test1:Foo!", "!test2:Bar!"]);
-     * ```
-     * @param headers Strings that represents a headers of note link
-     * @returns Object of the special headers that begins and ends with the character `!`
-     */
-    parseSpecialHeaders(headers: string[]): { specialHeaders: SpecialHeaders, nonSpecialHeaders: string[] } {
-        const nonSpecialHeaders = [];
-        const specialHeadersArray = [];
-        for (let header of headers) {
-            if (header.startsWith('!') && header.endsWith('!')) {
-                specialHeadersArray.push(header);
-            } else {
-                nonSpecialHeaders.push(header);
-            }
-        }
-
-        const parsedHeaders = specialHeadersArray.map((header) => header.slice(1, -1).split(':'));
-        const specialHeaders: SpecialHeaders = {};
-        for (let [key, value] of parsedHeaders) {
-            if (value === "\\#") {
-                value = "#";
-            }
-            specialHeaders[key] = value;
-        }
-        return { specialHeaders, nonSpecialHeaders };
+        return 'VIEW_ERROR';
     }
 }

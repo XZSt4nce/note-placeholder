@@ -1,18 +1,20 @@
-import { Plugin } from 'obsidian';
-import { NotePlaceholderSettings, DEFAULT_SETTINGS } from './settings';
-import { PlaceholderSettingTab } from './settingsTab';
-import { PlaceholderPropertyModal } from './placeholderPropertyModal';
+import { Editor, MarkdownView, Notice, Plugin, TFile, WorkspaceLeaf } from 'obsidian';
+import { NotePlaceholderSettings, DEFAULT_SETTINGS } from './settings/settings';
+import { PlaceholderSettingTab } from './settings/settingsTab';
+import { PlaceholderPropertyModal } from './modals/placeholderPropertyModal';
 import { Replacer } from './replacer';
-import { NoteMapper } from './noteMapper';
+import NoteEventHandlers from './event-handlers/noteEventHandlers';
 
 
 export default class NotePlaceholderPlugin extends Plugin {
-	settings: NotePlaceholderSettings;
-	replacer: Replacer
-	noteMapper: NoteMapper
+	public settings: NotePlaceholderSettings;
+	public notesMap: Map<string, TFile>
+	private replacer: Replacer;
+	private noteEventHandlers: NoteEventHandlers;
 
 	async onload() {
-		this.noteMapper = new NoteMapper(this.app);
+		this.notesMap = new Map(this.app.vault.getMarkdownFiles().map(file => [file.name, file]));
+		this.noteEventHandlers = new NoteEventHandlers(this);
 		this.replacer = new Replacer(this);
 
 		await this.loadSettings();
@@ -27,10 +29,26 @@ export default class NotePlaceholderPlugin extends Plugin {
 		this.addSettingTab(new PlaceholderSettingTab(this));
 
 		this.registerReplacer();
+
+		this.addCommand({
+			id: 'add-placeholder-property',
+			name: 'Add placeholder property',
+			editorCheckCallback: (checking: boolean, editor: Editor, view: MarkdownView) => {
+				const file = this.app.workspace.getActiveFile();
+				if (file && file.extension === 'md') {
+					if (!checking) {
+						new PlaceholderPropertyModal(this.app).open();
+					}
+					
+					return true;
+				}
+				return false;
+			}
+		})
 	}
 
-	async onunload() {
-		this.noteMapper.unregisterEventHandlers();
+	onunload() {
+		this.noteEventHandlers.unregisterEventHandlers();
 	}
 
 	async loadSettings() {
