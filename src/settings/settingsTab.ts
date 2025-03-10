@@ -1,6 +1,6 @@
 import { PluginSettingTab, Setting } from 'obsidian';
 import NotePlaceholderPlugin from 'src/main';
-import { NotePlaceholderSettings, Options } from './settings';
+import { Options } from './settings';
 import { SettingItem } from 'src/types';
 
 export class PlaceholderSettingTab extends PluginSettingTab {

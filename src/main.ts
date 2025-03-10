@@ -1,8 +1,8 @@
-import { Editor, MarkdownView, Notice, Plugin, TFile, WorkspaceLeaf } from 'obsidian';
+import { Plugin, TFile } from 'obsidian';
 import { NotePlaceholderSettings, DEFAULT_SETTINGS } from './settings/settings';
 import { PlaceholderSettingTab } from './settings/settingsTab';
-import { PlaceholderPropertyModal } from './modals/placeholderPropertyModal';
-import { Replacer } from './replacer';
+import PlaceholderPropertyModal from './modals/placeholderPropertyModal';
+import Replacer from './replacer';
 import NoteEventHandlers from './event-handlers/noteEventHandlers';
 
 
@@ -33,7 +33,7 @@ export default class NotePlaceholderPlugin extends Plugin {
 		this.addCommand({
 			id: 'add-placeholder-property',
 			name: 'Add placeholder property',
-			editorCheckCallback: (checking: boolean, editor: Editor, view: MarkdownView) => {
+			editorCheckCallback: (checking: boolean) => {
 				const file = this.app.workspace.getActiveFile();
 				if (file && file.extension === 'md') {
 					if (!checking) {

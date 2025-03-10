@@ -1,10 +1,10 @@
-import { MetadataCache, TFile } from 'obsidian';
+import { TFile } from 'obsidian';
 import { DEFAULT_SETTINGS, NotePlaceholderSettings } from './settings/settings';
 import NotePlaceholderPlugin from 'src/main';
 import { InternalLinks, NoteLink } from './types';
 import { splitHeadersWithEscapedSymbols, getInternalLinks, parseSpecialHeaders, getNotes } from './utils';
 
-export class Replacer {
+export default class Replacer {
     private plugin: NotePlaceholderPlugin;
 
     constructor(plugin: NotePlaceholderPlugin) {

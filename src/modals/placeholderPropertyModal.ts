@@ -1,7 +1,7 @@
 import { App, Modal, Setting, Notice, TFile } from 'obsidian';
 
 
-export class PlaceholderPropertyModal extends Modal {
+export default class PlaceholderPropertyModal extends Modal {
     private placeholderPropertyValue: string;
 
     constructor(app: App) {
