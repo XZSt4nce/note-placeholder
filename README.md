@@ -36,7 +36,7 @@ Link in view mode:
 
 ![headerView](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/images/headerView.png)
 
-**Пример 2**:
+**Example 2**:
 
 Link in source mode:
 
