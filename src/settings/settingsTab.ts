@@ -39,7 +39,7 @@ export class PlaceholderSettingTab extends PluginSettingTab {
 
         new Setting(containerEl)
             .setName('Text to disable placeholder')
-            .setDesc(`If you pass this text to the link as a name, then the placeholder will not be used and the name of the note will be displayed`)
+            .setDesc('If you pass this text to the link as a name, then the placeholder will not be used and the name of the note will be displayed')
             .addText(tc =>
                 tc.setValue(this.plugin.settings.textToDisablePlaceholder)
                     .onChange(async (value: string) => {
@@ -50,7 +50,7 @@ export class PlaceholderSettingTab extends PluginSettingTab {
 
         new Setting(containerEl)
             .setName('Default headers separator')
-            .setDesc(`Text between the text between the placeholder and headers/block. You can specify it for links using a special header (at the end) like '!sep:SEP!', then the link [[MyNote#someHeader#!sep:SEP!]] will be displayed as 'MyNoteSEPsomeHeader'.`)
+            .setDesc('Text between the text between the placeholder and headers/block. You can specify it for links using a special header (at the end) like \'!sep:SEP!\', then the link [[MyNote#someHeader#!sep:SEP!]] will be displayed as \'MyNoteSEPsomeHeader\'.')
             .addText(tc =>
                 tc.setValue(this.plugin.settings.defaultHeaderSeparator)
                     .onChange(async (value: string) => {
@@ -67,7 +67,7 @@ export class PlaceholderSettingTab extends PluginSettingTab {
     */
     settingItems(items: SettingItem[]) {
         return createFragment((frag) => {
-            for (let item of items) {
+            for (const item of items) {
                 const container = frag.createDiv();
                 container.createEl('b', { text: item.item });
                 container.createSpan({ text: ` : ${item.description}` });

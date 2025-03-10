@@ -5,6 +5,11 @@ export type InternalLinks = {
     noteLinks: Element[] // Links to other notes
 }
 
+export type SpecialHeaders = {
+    sep?: string; // separator header that displaying between placeholder and headers/block
+    [key: string]: unknown; // other special headers
+}
+
 export type LinkHeaders = {
     specialHeaders: SpecialHeaders, // Headers framed by `!`
     nonSpecialHeaders: string[] // Other headers
@@ -18,13 +23,8 @@ export type NoteLink = {
 
 export type NoteProperties = {
     placeholder?: string; // placeholder property that displaying instead of default internal link view
-    [key: string]: any; // other properties
+    [key: string]: unknown; // other properties
 };
-
-export type SpecialHeaders = {
-    sep?: string; // separator header that displaying between placeholder and headers/block
-    [key: string]: any; // other special headers
-}
 
 export type SettingItem = {
     item: string; // Name of setting item

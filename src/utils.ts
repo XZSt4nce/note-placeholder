@@ -3,7 +3,7 @@ import { LinkHeaders, NoteLink, SpecialHeaders } from './types';
 
 /**
  * Split headings by #, excluding escaped ones
- * @param {string} hrefAttribute 
+ * @param {string} hrefAttribute
  * @returns {string[]} Headers
  */
 export const splitHeadersWithEscapedSymbols = (hrefAttribute: string): string[] => {
@@ -13,7 +13,7 @@ export const splitHeadersWithEscapedSymbols = (hrefAttribute: string): string[] 
         return [href, ...headers];
     }
     return headers;
-}
+};
 
 /**
  * @param {HTMLElement} element HTML element of note
@@ -21,7 +21,7 @@ export const splitHeadersWithEscapedSymbols = (hrefAttribute: string): string[] 
  */
 export const getInternalLinks = (element: HTMLElement): NodeListOf<Element> => {
     return element.querySelectorAll('a.internal-link');
-}
+};
 
 /**
  * Parses special headers from a list of strings
@@ -37,7 +37,7 @@ export const getInternalLinks = (element: HTMLElement): NodeListOf<Element> => {
 export const parseSpecialHeaders = (headers: string[]): LinkHeaders => {
     const nonSpecialHeaders = [];
     const specialHeadersArray = [];
-    for (let header of headers) {
+    for (const header of headers) {
         if (header.startsWith('!') && header.endsWith('!')) {
             specialHeadersArray.push(header);
         } else {
@@ -47,14 +47,14 @@ export const parseSpecialHeaders = (headers: string[]): LinkHeaders => {
 
     const parsedHeaders = specialHeadersArray.map((header) => header.slice(1, -1).split(':'));
     const specialHeaders: SpecialHeaders = {};
-    for (let [key, value] of parsedHeaders) {
+    for (const [key, value] of parsedHeaders) {
         if (value === '\\#') {
-            value = '#';
+            specialHeaders[key] = '#';
         }
-        specialHeaders[key] = value;
+
     }
     return { specialHeaders, nonSpecialHeaders };
-}
+};
 
 /**
  * @param {Element[]} links Internal links of note
@@ -70,7 +70,7 @@ export const getNotes = (notesMap: Map<string, TFile>, links: Element[]): NoteLi
         if (hrefAttribute) {
             const [href, ...headers] = splitHeadersWithEscapedSymbols(hrefAttribute);
             const fileName = href + '.md';
-            let file: TFile | undefined = notesMap.get(fileName);
+            const file: TFile | undefined = notesMap.get(fileName);
 
             if (file) {
                 note = { file, link, headers };
@@ -82,4 +82,4 @@ export const getNotes = (notesMap: Map<string, TFile>, links: Element[]): NoteLi
     }
 
     return notes;
-}
+};

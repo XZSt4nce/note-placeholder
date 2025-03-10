@@ -22,7 +22,7 @@ export default class Replacer {
             const link = links[i];
             const hrefAttribute = link.getAttribute('href');
             if (hrefAttribute) {
-                const tempMarker = '|~~~|'
+                const tempMarker = '|~~~|';
                 const [href]: string[] = hrefAttribute.replace(/\\#/g, tempMarker).split('#').map(el => el.replace(tempMarker, '\\#'));
                 if (href) {
                     noteLinks.push(link);
