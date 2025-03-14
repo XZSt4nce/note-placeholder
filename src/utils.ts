@@ -7,12 +7,9 @@ import { LinkHeaders, NoteLink, SpecialHeaders } from './types';
  * @returns {string[]} Headers
  */
 export const splitHeadersWithEscapedSymbols = (hrefAttribute: string): string[] => {
+    const escapedGrid = /\\#/g;
     const tempMarker = '|~~~|';
-    const [href, ...headers]: string[] = hrefAttribute.replace(/\\#/g, tempMarker).split('#').map(el => el.replace(tempMarker, '\\#'));
-    if (href) {
-        return [href, ...headers];
-    }
-    return headers;
+    return hrefAttribute.replace(escapedGrid, tempMarker).split('#').map(el => el.replace(tempMarker, escapedGrid.source));
 };
 
 /**
@@ -82,4 +79,19 @@ export const getNotes = (notesMap: Map<string, TFile>, links: Element[]): NoteLi
     }
 
     return notes;
+};
+
+/**
+ * Removes `^` from block header
+ * @param {string[]} headers
+ */
+export const removeBlockCircumflex = (headers: string[]) => {
+
+    // Count of headers that begins with the character `^`
+    const blockHeaders = headers.filter((value: string) => value.startsWith('^')).length;
+
+    // Remove the `^` character in the block header
+    if (blockHeaders === 1 && headers.length === 1) {
+        headers[0] = headers[0].slice(1);
+    }
 };

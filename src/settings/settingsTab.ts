@@ -14,7 +14,7 @@ export class PlaceholderSettingTab extends PluginSettingTab {
     /**
      * Display settings of {@link NotePlaceholderPlugin}
      */
-    display(): void {
+    display() {
         const { containerEl } = this;
 
         containerEl.empty();

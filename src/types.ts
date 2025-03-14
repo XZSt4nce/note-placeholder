@@ -30,3 +30,8 @@ export type SettingItem = {
     item: string; // Name of setting item
     description: string; // Description of setting item
 };
+
+export type LinkView = {
+    view: string; // Text to display link
+    dataHref: string; // data-href for link
+}
