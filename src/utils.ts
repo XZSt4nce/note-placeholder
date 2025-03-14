@@ -45,10 +45,11 @@ export const parseSpecialHeaders = (headers: string[]): LinkHeaders => {
     const parsedHeaders = specialHeadersArray.map((header) => header.slice(1, -1).split(':'));
     const specialHeaders: SpecialHeaders = {};
     for (const [key, value] of parsedHeaders) {
-        if (value === '\\#') {
+        if (value === '\\\\#') {
             specialHeaders[key] = '#';
+        } else {
+            specialHeaders[key] = value;
         }
-
     }
     return { specialHeaders, nonSpecialHeaders };
 };
