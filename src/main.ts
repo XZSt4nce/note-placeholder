@@ -47,10 +47,6 @@ export default class NotePlaceholderPlugin extends Plugin {
         });
     }
 
-    onunload() {
-        this.noteEventHandlers.unregisterEventHandlers();
-    }
-
     async loadSettings() {
         this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
     }

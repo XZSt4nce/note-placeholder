@@ -1,16 +1,14 @@
-import { TAbstractFile, TFile, Vault } from 'obsidian';
+import { TAbstractFile, TFile } from 'obsidian';
 import NotePlaceholderPlugin from 'src/main';
 
 export default class NoteEventHandlers {
-    private vault: Vault;
-    private notesMap: Map<string, TFile>;
+    private plugin: NotePlaceholderPlugin;
     private createEventHandler: (file: TAbstractFile) => void;
     private deleteEventHandler: (file: TAbstractFile) => void;
     private renameEventHandler: (file: TFile, oldPath: string) => void;
 
     constructor(plugin: NotePlaceholderPlugin) {
-        this.vault = plugin.app.vault;
-        this.notesMap = plugin.notesMap;
+        this.plugin = plugin;
         this.createEventHandler = this.handleFileCreate.bind(this);
         this.deleteEventHandler = this.handleFileDelete.bind(this);
         this.renameEventHandler = this.handleFileRename.bind(this);
@@ -21,18 +19,9 @@ export default class NoteEventHandlers {
      * Register event handlers.
      */
     registerEventHandlers() {
-        this.vault.on('create', this.createEventHandler);
-        this.vault.on('delete', this.deleteEventHandler);
-        this.vault.on('rename', this.renameEventHandler);
-    }
-
-    /**
-     * Unregister event handlers.
-     */
-    unregisterEventHandlers() {
-        this.vault.off('create', this.createEventHandler);
-        this.vault.off('delete', this.deleteEventHandler);
-        this.vault.off('rename', this.renameEventHandler);
+        this.plugin.registerEvent(this.plugin.app.vault.on('create', this.createEventHandler));
+        this.plugin.registerEvent(this.plugin.app.vault.on('delete', this.deleteEventHandler));
+        this.plugin.registerEvent(this.plugin.app.vault.on('rename', this.renameEventHandler));
     }
 
     /**
@@ -42,7 +31,7 @@ export default class NoteEventHandlers {
     handleFileCreate(file: TAbstractFile) {
         if (file instanceof TFile && file.extension === 'md') {
             const markdownFile = file;
-            this.notesMap.set(markdownFile.name, markdownFile);
+            this.plugin.notesMap.set(markdownFile.name, markdownFile);
         }
     }
 
@@ -52,7 +41,7 @@ export default class NoteEventHandlers {
      */
     handleFileDelete(file: TAbstractFile) {
         if (file instanceof TFile && file.extension === 'md') {
-            this.notesMap.delete(file.name);
+            this.plugin.notesMap.delete(file.name);
         }
     }
 
@@ -65,8 +54,8 @@ export default class NoteEventHandlers {
         if (file.extension === 'md') {
             const oldName = oldPath.split('/').pop();
             if (oldName) {
-                this.notesMap.delete(oldName);
-                this.notesMap.set(file.name, file);
+                this.plugin.notesMap.delete(oldName);
+                this.plugin.notesMap.set(file.name, file);
             }
         }
     }
