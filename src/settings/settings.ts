@@ -7,6 +7,12 @@ export const Options = {
 
 export interface NotePlaceholderSettings {
     /**
+     * The name of the property, the text of which will be substituted for the link
+     * @defaultValue 'placeholder'
+     */
+    placeholderPropertyName: string;
+
+    /**
      * Whether the custom link name will be used instead of placeholder
      * @defaultValue `default on, but off when specified`
      */
@@ -26,6 +32,7 @@ export interface NotePlaceholderSettings {
 }
 
 export const DEFAULT_SETTINGS: NotePlaceholderSettings = {
+    placeholderPropertyName: 'placeholder',
     useLinkNameInsteadOfPlaceholder: Options.DNFS,
     textToDisablePlaceholder: '!dp!',
     defaultHeaderSeparator: ' > '

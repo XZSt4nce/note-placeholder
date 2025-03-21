@@ -10,7 +10,7 @@
 
 ### Заполнитель
 
-Вы можете добавить заполнитель для имени ссылки, добавив заметке свойство `placeholder`.
+Вы можете добавить заполнитель для имени ссылки, добавив заметке свойство `placeholder` (если не было переопределено в настройках).
 
 ![placeholderProperty](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/images/placeholderProperty.png)
 
@@ -48,10 +48,11 @@
 
 ## Настройки
 
-- Use Link Name Instead Of Placeholder
+- Placeholder property name : имя свойства, текст которого будет подставляться вместо ссылки (по умолчанию: `placeholder`)
+- Use link name instead of placeholder
   - `default on, but off when specified` : заполнитель будет использован только в том случае, если имя ссылки не определено
   - `always off` : заполнитель всегда будет использован в качестве имени ссылки
-- Text To Disable Placeholder : если вы вставите этот текст в качестве имени ссылки, будет отображено имя заметки (по умолчанию: `!dp!`)
+- Text to disable placeholder : если вы вставите этот текст в качестве имени ссылки, будет отображено имя заметки (по умолчанию: `!dp!`)
 - Default headers separator : текст между заполнителем и заголовками/блоком (по умолчанию: ` > `)
 
 ## Лицензия

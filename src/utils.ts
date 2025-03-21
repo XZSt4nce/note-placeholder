@@ -7,9 +7,9 @@ import { LinkHeaders, NoteLink, SpecialHeaders } from './types';
  * @returns {string[]} Headers
  */
 export const splitHeadersWithEscapedSymbols = (hrefAttribute: string): string[] => {
-    const escapedGrid = /\\#/g;
+    const escapedGrid = '\\#';
     const tempMarker = '|~~~|';
-    return hrefAttribute.replace(escapedGrid, tempMarker).split('#').map(el => el.replace(tempMarker, escapedGrid.source));
+    return hrefAttribute.replace(escapedGrid, tempMarker).split('#').map(el => el.replace(tempMarker, escapedGrid));
 };
 
 /**
@@ -31,26 +31,22 @@ export const getInternalLinks = (element: HTMLElement): NodeListOf<Element> => {
  * @param {string[]} headers Strings that represents a headers of note link
  * @returns {LinkHeaders} Object of the special headers that begins and ends with the character `!`
  */
-export const parseSpecialHeaders = (headers: string[]): LinkHeaders => {
-    const nonSpecialHeaders = [];
-    const specialHeadersArray = [];
+export const parseHeaders = (headers: string[]): LinkHeaders => {
+    const nonSpecialHeaders: string[] = [];
+    const specialHeaders: SpecialHeaders = {};
     for (const header of headers) {
         if (header.startsWith('!') && header.endsWith('!')) {
-            specialHeadersArray.push(header);
+            const [key, value] = header.slice(1, -1).split(':');
+            if (value === '\\#') {
+                specialHeaders[key] = '#';
+            } else {
+                specialHeaders[key] = value;
+            }
         } else {
             nonSpecialHeaders.push(header);
         }
     }
 
-    const parsedHeaders = specialHeadersArray.map((header) => header.slice(1, -1).split(':'));
-    const specialHeaders: SpecialHeaders = {};
-    for (const [key, value] of parsedHeaders) {
-        if (value === '\\\\#') {
-            specialHeaders[key] = '#';
-        } else {
-            specialHeaders[key] = value;
-        }
-    }
     return { specialHeaders, nonSpecialHeaders };
 };
 

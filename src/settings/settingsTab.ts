@@ -15,9 +15,20 @@ export class PlaceholderSettingTab extends PluginSettingTab {
      * Display settings of {@link NotePlaceholderPlugin}
      */
     display() {
-        const { containerEl } = this;
+        const containerEl: HTMLElement = this.containerEl;
 
         containerEl.empty();
+
+        new Setting(containerEl)
+            .setName('Placeholder property name')
+            .setDesc('The name of the property, the text of which will be substituted for the link')
+            .addText(tc =>
+                tc.setValue(this.plugin.settings.placeholderPropertyName)
+                    .onChange(async (value: string) => {
+                        this.plugin.settings.placeholderPropertyName = value;
+                        await this.plugin.saveSettings();
+                    })
+            );
 
         new Setting(containerEl)
             .setName('Use link name instead of placeholder')
@@ -25,8 +36,8 @@ export class PlaceholderSettingTab extends PluginSettingTab {
                 { item: Options.DNFS, description: 'the placeholder will only be shown if the link name is not specified' },
                 { item: Options.AF, description: 'the placeholder will always be shown instead of link name' }
             ]))
-            .addDropdown(tc =>
-                tc.addOptions({
+            .addDropdown(dc =>
+                dc.addOptions({
                     'default on, but off when specified': Options.DNFS,
                     'always off': Options.AF,
                 })
@@ -66,9 +77,9 @@ export class PlaceholderSettingTab extends PluginSettingTab {
      * @returns Fragment that represents items of setting
     */
     settingItems(items: SettingItem[]) {
-        return createFragment((frag) => {
+        return createFragment((frag: DocumentFragment) => {
             for (const item of items) {
-                const container = frag.createDiv();
+                const container: HTMLDivElement = frag.createDiv();
                 container.createEl('b', { text: item.item });
                 container.createSpan({ text: ` : ${item.description}` });
             }

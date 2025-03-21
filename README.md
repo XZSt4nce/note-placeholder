@@ -10,7 +10,7 @@ With Note Placeholder, you can add text that will be automatically inserted in p
 
 ### Placeholder
 
-You can add a placeholder for the note link by adding the `placeholder` property to it.
+You can add a placeholder for the note link by adding the `placeholder` (if it has not been redefined in the settings) property to it.
 
 ![placeholderProperty](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/images/placeholderProperty.png)
 
@@ -48,10 +48,11 @@ Link in view mode:
 
 ## Settings
 
-- Use Link Name Instead Of Placeholder
+- Placeholder property name : the name of the property, the text of which will be substituted for the link
+- Use link name instead of placeholder
   - `default on, but off when specified` : the placeholder will only be shown if the link name is not specified
   - `always off` : the placeholder will always be shown instead of link name
-- Text To Disable Placeholder : if you insert this text as the link name, the note name will be displayed (default: `!dp!`)
+- Text to disable placeholder : if you insert this text as the link name, the note name will be displayed (default: `!dp!`)
 - Default header separator : text between the placeholder and headers/block (default: ` > `)
 
 ## License

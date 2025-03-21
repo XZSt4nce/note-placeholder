@@ -1,4 +1,4 @@
-import { App, Modal, Setting, Notice, TFile } from 'obsidian';
+import { App, Modal, Setting, Notice, TFile, FrontMatterCache, CachedMetadata } from 'obsidian';
 
 
 export default class PlaceholderPropertyModal extends Modal {
@@ -10,11 +10,11 @@ export default class PlaceholderPropertyModal extends Modal {
     }
 
     onOpen() {
-        const { contentEl } = this;
+        const contentEl: HTMLElement = this.containerEl;
 
         new Setting(contentEl).setName('Placeholder property').setHeading();
 
-        const file = this.app.workspace.getActiveFile();
+        const file: TFile | null = this.app.workspace.getActiveFile();
         if (!file) {
             new Notice('No active file found.');
             this.close();
@@ -27,7 +27,7 @@ export default class PlaceholderPropertyModal extends Modal {
             return;
         }
 
-        const metadata = this.app.metadataCache.getFileCache(file);
+        const metadata: CachedMetadata | null = this.app.metadataCache.getFileCache(file);
         this.placeholderPropertyValue = metadata?.frontmatter?.placeholder || '';
 
         new Setting(contentEl)
@@ -54,13 +54,13 @@ export default class PlaceholderPropertyModal extends Modal {
     }
 
     onClose() {
-        const { contentEl } = this;
+        const contentEl: HTMLElement = this.containerEl;
         contentEl.empty();
     }
 
     private async saveAndClose(file: TFile) {
         if (file) {
-            await this.app.fileManager.processFrontMatter(file, (frontmatter) => {
+            await this.app.fileManager.processFrontMatter(file, (frontmatter: FrontMatterCache) => {
                 frontmatter.placeholder = this.placeholderPropertyValue;
                 new Notice(`Added placeholder property (${this.placeholderPropertyValue}) for file ${file.basename}`);
             });
