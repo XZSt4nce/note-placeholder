@@ -12,22 +12,28 @@ export default class NotePlaceholderPlugin extends Plugin {
     public notesMap: Map<string, TFile>;
     private replacer: Replacer;
 
-    public async onload() {
+    async onload() {
+        this.app.workspace.onLayoutReady(() => {
+            this.initPlugin();
+        });
+    }
+
+    private initPlugin() {
         this.notesMap = new Map(this.app.vault.getMarkdownFiles().map(file => [file.name, file]));
         this.replacer = new Replacer(this);
 
-        await this.loadSettings();
+        this.loadSettings().then(() => {
+            new NoteEventHandlers(this).registerEventHandlers();
 
-        new NoteEventHandlers(this).registerEventHandlers();
+            new RibbonIcons(this).addIcons();
 
-        new RibbonIcons(this).addIcons();
+            // This adds a settings tab so the user can configure various aspects of the plugin
+            this.addSettingTab(new PlaceholderSettingTab(this));
 
-        // This adds a settings tab so the user can configure various aspects of the plugin
-        this.addSettingTab(new PlaceholderSettingTab(this));
+            this.registerReplacer();
 
-        this.registerReplacer();
-
-        new Commands(this).addCommands();
+            new Commands(this).addCommands();
+        });
     }
 
     private registerReplacer() {
