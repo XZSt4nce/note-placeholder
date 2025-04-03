@@ -15,11 +15,11 @@ With Note Placeholder, you can add text that will be automatically inserted in p
 5. Enter "Note Placeholder" in the search and go to the plugin
 6. Click on "Install" and then on "Enable"
 
-![How to install plugin](webm/how-to-install-plugin.webm)
+[how-to-install-plugin.webm](https://github.com/user-attachments/assets/c9876fd4-0266-483b-b167-80e87e5e7f8a)
 
 ## Usage
 
-![How to simply use plugin](webm/how-to-simply-use-plugin.webm)
+[how-to-simply-use-plugin.webm](https://github.com/user-attachments/assets/4a70d137-f2aa-4474-89e3-9b16b5102a3b)
 
 ## Features
 
@@ -42,13 +42,13 @@ Will be displayed (in view mode) like this:
 You can disable the use of link names if the note has a placeholder
 To do this, you need to set the `Use link name instead of placeholder` setting to `Always off`
 
-![Using placeholder instead of link name](webm/using-placeholder-instead-of-link-name.webm)
+[using-placeholder-instead-of-link-name.webm](https://github.com/user-attachments/assets/2660848b-07f8-4f34-95f0-8fabd32393c3)
 
 #### Changing placeholder property name
 
 In the settings, you can change the name of the property whose value will be used as a placeholder
 
-![Changing placeholder property name](webm/changing-placeholder-property-name.webm)
+[changing-placeholder-property-name.webm](https://github.com/user-attachments/assets/59f9ed75-9239-4929-a926-1944a685d7cf)
 
 ### Separator
 
@@ -76,13 +76,13 @@ Link in view mode:
 
 **Video example**
 
-![Customizing headers separator](webm/customizing-headers-separator.webm)
+[customizing-headers-separator.webm](https://github.com/user-attachments/assets/9afa5b83-3eb2-43d1-94f3-c22fc5e8ac9b)
 
 ### Disabling placeholder
 
 By default, to disable the use of placeholder, you need to specify `!dp!'` as the link name if the value has not been changed in the settings
 
-![Disabling placehoder](webm/disabling-placeholder.webm)
+[disabling-placeholder.webm](https://github.com/user-attachments/assets/47a788ae-2673-480f-8f38-9da8d8f20346)
 
 ## Settings
 
