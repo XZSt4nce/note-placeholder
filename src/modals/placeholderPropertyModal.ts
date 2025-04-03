@@ -2,17 +2,16 @@ import { App, Modal, Setting, Notice, TFile, FrontMatterCache, CachedMetadata } 
 
 
 export default class PlaceholderPropertyModal extends Modal {
-    private placeholderPropertyValue: string;
+    private placeholderPropertyValue = '';
 
     constructor(app: App) {
         super(app);
-        this.placeholderPropertyValue = '';
     }
 
     onOpen() {
-        const contentEl: HTMLElement = this.containerEl;
+        const contentEl: HTMLElement = this.contentEl;
 
-        new Setting(contentEl).setName('Placeholder property').setHeading();
+        this.setTitle('Placeholder property');
 
         const file: TFile | null = this.app.workspace.getActiveFile();
         if (!file) {
@@ -39,7 +38,7 @@ export default class PlaceholderPropertyModal extends Modal {
                         this.placeholderPropertyValue = value;
                     })
                     .inputEl.addEventListener('keydown', (event) => {
-                        if (event.key === 'Enter') {
+                        if (event.key === 'Enter' && this.placeholderPropertyValue) {
                             this.saveAndClose(file);
                         }
                     });
@@ -47,7 +46,8 @@ export default class PlaceholderPropertyModal extends Modal {
 
         new Setting(contentEl)
             .addButton(btn => btn
-                .setButtonText('Save')
+                .setButtonText('Submit')
+                .setCta()
                 .onClick(async () => {
                     await this.saveAndClose(file);
                 }));
