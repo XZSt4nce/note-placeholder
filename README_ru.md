@@ -2,9 +2,26 @@
 
 [Obsidian](https://obsidian.md) plugin developed by XZSt4nce
 
-[ [English](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/README.md) | Русский ]
+[ [English](README.md) | Русский ]
 
 С помощью Note Placeholder, вы можете добавить заполнитель, который будет автоматически подставлен в качестве имени ссылки в режиме просмотра.
+
+## Установка
+
+Для установки плагина нужно:
+
+1. Зайти в настройки Obsidian
+2. Перейти во вкладку "Сторонние плагины"
+3. Включить сторонние плагины (если ещё не включены)
+4. Нажать кнопку "Обзор"
+5. В поиске ввести "Note Placeholder" и перейти к плагину
+6. Нажать на "Установить", а затем на "Включить"
+
+![Кка установить плагин](gifs/how-to-install-plugin.GIF)
+
+## Использование
+
+![Как просто использовать плагин](gifs/how-to-simply-use-plugin.gif)
 
 ## Функции
 
@@ -12,15 +29,28 @@
 
 Вы можете добавить заполнитель для имени ссылки, добавив заметке свойство `placeholder` (если не было переопределено в настройках).
 
-![placeholderProperty](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/images/placeholderProperty.png)
+![placeholderProperty](images/placeholderProperty.png)
 
 Так что это:
 
-![noteLink](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/images/noteLink.png)
+![noteLink](images/noteLink.png)
 
 Будет отображено (в режиме просмотра) таким образом:
 
-![placeholderedNoteLink](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/images/placeholderedNoteLink.png)
+![placeholderedNoteLink](images/placeholderedNoteLink.png)
+
+#### Всегда использовать заполнитель вместо имени ссылки
+
+Вы можете отключить использование имён ссылок, если у заметки есть заполнитель
+Чтобы это сделать, нужно установить настройку `Use link name instead of placeholder` в `Always off`
+
+![Использование заполнителя вместо имени ссылки](gifs/using-placeholder-instead-of-link-name.gif)
+
+#### Изменение имени свойства заполнителя
+
+В настройках можно изменить имя свойства, значение которого будет использоваться в качестве заполнителя
+
+![Изменение имени свойства заполнителя](gifs/changing-placeholder-property-name.gif)
 
 ### Разделитель
 
@@ -30,21 +60,31 @@
 
 Ссылка в режиме редактирования:
 
-![headerSource](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/images/headerSource.png)
+![headerSource](images/headerSource.png)
 
 Ссылка в режиме просмотра:
 
-![headerView](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/images/headerView.png)
+![headerView](images/headerView.png)
 
 **Пример 2**:
 
 Ссылка в режиме редактирования:
 
-![blockSource](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/images/blockSource.png)
+![blockSource](images/blockSource.png)
 
 Ссылка в режиме просмотра:
 
-![blockView](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/images/blockView.png)
+![blockView](images/blockView.png)
+
+**Видео пример**
+
+![Customizing headers separator](gifs/customizing-headers-separator.gif)
+
+### Отключение заполнителя
+
+По умолчанию, чтобы отключить использование заполнителя нужно в качестве имени ссылки указать `!dp!`, если значение не было изменено в настройках
+
+![Отключение заполнителя](gifs/disabling-placeholder.gif)
 
 ## Настройки
 

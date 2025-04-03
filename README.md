@@ -2,9 +2,24 @@
 
 [Obsidian](https://obsidian.md) plugin developed by XZSt4nce
 
-[ English | [Русский](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/README_ru.md) ]
+[ English | [Русский](README_ru.md) ]
 
 With Note Placeholder, you can add text that will be automatically inserted in place of the link in view mode.
+
+## Installation
+
+1. Go to the Obsidian settings
+2. Go to the "Community plugins" tab
+3. Enable community plugins (if not already enabled)
+4. Click the "Browse" button
+5. Enter "Note Placeholder" in the search and go to the plugin
+6. Click on "Install" and then on "Enable"
+
+![How to install plugin](gifs/how-to-install-plugin.GIF)
+
+## Usage
+
+![How to simply use plugin](gifs/how-to-simply-use-plugin.gif)
 
 ## Features
 
@@ -12,15 +27,28 @@ With Note Placeholder, you can add text that will be automatically inserted in p
 
 You can add a placeholder for the note link by adding the `placeholder` (if it has not been redefined in the settings) property to it.
 
-![placeholderProperty](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/images/placeholderProperty.png)
+![placeholderProperty](images/placeholderProperty.png)
 
 So this:
 
-![noteLink](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/images/noteLink.png)
+![noteLink](images/noteLink.png)
 
 Will be displayed (in view mode) like this:
 
-![placeholderedNoteLink](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/images/placeholderedNoteLink.png)
+![placeholderedNoteLink](images/placeholderedNoteLink.png)
+
+#### Always using placeholder instead of link name
+
+You can disable the use of link names if the note has a placeholder
+To do this, you need to set the `Use link name instead of placeholder` setting to `Always off`
+
+![Using placeholder instead of link name](gifs/using-placeholder-instead-of-link-name.gif)
+
+#### Changing placeholder property name
+
+In the settings, you can change the name of the property whose value will be used as a placeholder
+
+![Changing placeholder property name](gifs/changing-placeholder-property-name.gif)
 
 ### Separator
 
@@ -30,21 +58,31 @@ You can specify separator for a headers and a specific block by specifying the s
 
 Link in source mode:
 
-![headerSource](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/images/headerSource.png)
+![headerSource](images/headerSource.png)
 
 Link in view mode:
 
-![headerView](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/images/headerView.png)
+![headerView](images/headerView.png)
 
 **Example 2**:
 
 Link in source mode:
 
-![blockSource](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/images/blockSource.png)
+![blockSource](images/blockSource.png)
 
 Link in view mode:
 
-![blockView](https://github.com/XZSt4nce/obsidian-note-placeholder/blob/main/images/blockView.png)
+![blockView](images/blockView.png)
+
+**Video example**
+
+![Customizing headers separator](gifs/customizing-headers-separator.gif)
+
+### Disabling placeholder
+
+By default, to disable the use of placeholder, you need to specify `!dp!'` as the link name if the value has not been changed in the settings
+
+![Disabling placehoder](gifs/disabling-placeholder.gif)
 
 ## Settings
 
