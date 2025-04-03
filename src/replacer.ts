@@ -116,34 +116,29 @@ export default class Replacer {
         }
 
         const settings: NotePlaceholderSettings = this.plugin.settings || DEFAULT_SETTINGS;
+        const namesOff: boolean = settings.useLinkNameInsteadOfPlaceholder === Options.AF;
+        const placeholderDisabled: boolean = settings.textToDisablePlaceholder === linkName;
+
         const viewHref = hrefAttribute.replace(/#/g, ' > ');
         const noName: boolean = linkName === viewHref;
-        const namesOff: boolean = settings.useLinkNameInsteadOfPlaceholder === Options.AF;
-        const disablePlaceholder: boolean = settings.textToDisablePlaceholder === linkName;
 
-        const { specialHeaders, nonSpecialHeaders }: LinkHeaders = parseHeaders(note.headers);
-
+        const fileName: string = note.file.basename;
         const placeholder: string | undefined = this.getPlaceholderProperty(note.file);
 
         let view: string;
-        if (disablePlaceholder) {
-            view = viewHref;
-        } else if (placeholder && (noName || namesOff)) {
-
-            // Specified separator or default separator
-            const headerSeparator: string = specialHeaders.sep ?? settings.defaultHeaderSeparator;
-
-            removeBlockCircumflex(nonSpecialHeaders);
-
-            // If link name is not specified or using link name instead of `placeholder` is `always off` and placeholder is specified display placeholder
-            view = [placeholder, ...nonSpecialHeaders].join(headerSeparator);
+        if (placeholder && (noName || namesOff) && !placeholderDisabled) {
+            view = placeholder;
         } else {
-
-            // Otherwise display filename with default Obsidian headers separator (` > `)
-            view = linkName;
+            view = fileName;
         }
 
-        const dataHref: string = [hrefAttribute.substring(0, hrefAttribute.indexOf('#')), ...nonSpecialHeaders].join('#');
+        const { specialHeaders, nonSpecialHeaders }: LinkHeaders = parseHeaders(note.headers);
+
+        removeBlockCircumflex(nonSpecialHeaders);
+        const headerSeparator: string = specialHeaders.sep ?? settings.defaultHeaderSeparator;
+        view = [view, ...nonSpecialHeaders].join(headerSeparator);
+
+        const dataHref: string = [fileName, ...nonSpecialHeaders].join('#');
         return {view, dataHref};
     }
 }
