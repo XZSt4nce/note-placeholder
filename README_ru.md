@@ -17,11 +17,11 @@
 5. В поиске ввести "Note Placeholder" и перейти к плагину
 6. Нажать на "Установить", а затем на "Включить"
 
-![Кка установить плагин](gifs/how-to-install-plugin.GIF)
+![Кка установить плагин](webm/how-to-install-plugin.webm)
 
 ## Использование
 
-![Как просто использовать плагин](gifs/how-to-simply-use-plugin.gif)
+![Как просто использовать плагин](webm/how-to-simply-use-plugin.webm)
 
 ## Функции
 
@@ -44,13 +44,13 @@
 Вы можете отключить использование имён ссылок, если у заметки есть заполнитель
 Чтобы это сделать, нужно установить настройку `Use link name instead of placeholder` в `Always off`
 
-![Использование заполнителя вместо имени ссылки](gifs/using-placeholder-instead-of-link-name.gif)
+![Использование заполнителя вместо имени ссылки](webm/using-placeholder-instead-of-link-name.webm)
 
 #### Изменение имени свойства заполнителя
 
 В настройках можно изменить имя свойства, значение которого будет использоваться в качестве заполнителя
 
-![Изменение имени свойства заполнителя](gifs/changing-placeholder-property-name.gif)
+![Изменение имени свойства заполнителя](webm/changing-placeholder-property-name.webm)
 
 ### Разделитель
 
@@ -78,13 +78,13 @@
 
 **Видео пример**
 
-![Customizing headers separator](gifs/customizing-headers-separator.gif)
+![Customizing headers separator](webm/customizing-headers-separator.webm)
 
 ### Отключение заполнителя
 
 По умолчанию, чтобы отключить использование заполнителя нужно в качестве имени ссылки указать `!dp!`, если значение не было изменено в настройках
 
-![Отключение заполнителя](gifs/disabling-placeholder.gif)
+![Отключение заполнителя](webm/disabling-placeholder.webm)
 
 ## Настройки
 

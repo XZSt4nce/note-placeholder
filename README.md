@@ -15,11 +15,11 @@ With Note Placeholder, you can add text that will be automatically inserted in p
 5. Enter "Note Placeholder" in the search and go to the plugin
 6. Click on "Install" and then on "Enable"
 
-![How to install plugin](gifs/how-to-install-plugin.GIF)
+![How to install plugin](webm/how-to-install-plugin.webm)
 
 ## Usage
 
-![How to simply use plugin](gifs/how-to-simply-use-plugin.gif)
+![How to simply use plugin](webm/how-to-simply-use-plugin.webm)
 
 ## Features
 
@@ -42,13 +42,13 @@ Will be displayed (in view mode) like this:
 You can disable the use of link names if the note has a placeholder
 To do this, you need to set the `Use link name instead of placeholder` setting to `Always off`
 
-![Using placeholder instead of link name](gifs/using-placeholder-instead-of-link-name.gif)
+![Using placeholder instead of link name](webm/using-placeholder-instead-of-link-name.webm)
 
 #### Changing placeholder property name
 
 In the settings, you can change the name of the property whose value will be used as a placeholder
 
-![Changing placeholder property name](gifs/changing-placeholder-property-name.gif)
+![Changing placeholder property name](webm/changing-placeholder-property-name.webm)
 
 ### Separator
 
@@ -76,13 +76,13 @@ Link in view mode:
 
 **Video example**
 
-![Customizing headers separator](gifs/customizing-headers-separator.gif)
+![Customizing headers separator](webm/customizing-headers-separator.webm)
 
 ### Disabling placeholder
 
 By default, to disable the use of placeholder, you need to specify `!dp!'` as the link name if the value has not been changed in the settings
 
-![Disabling placehoder](gifs/disabling-placeholder.gif)
+![Disabling placehoder](webm/disabling-placeholder.webm)
 
 ## Settings
 
