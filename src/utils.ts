@@ -90,7 +90,8 @@ export const removeBlockCircumflex = (headers: string[]) => {
     // Remove the `^` character in the block header
     if (blockHeaders.length === 1 && headers.length === 1) {
         blockHeaders[0] = blockHeaders[0].slice(1);
+        return blockHeaders;
     }
 
-    return blockHeaders;
+    return headers;
 };
