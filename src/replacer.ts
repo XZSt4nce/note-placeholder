@@ -86,6 +86,7 @@ export default class Replacer {
 
         const [, ...headers]: string[] = splitHeadersWithEscapedSymbols(hrefAttribute);
         const { specialHeaders, nonSpecialHeaders }: LinkHeaders = parseHeaders(headers);
+        const dataHref: string = ['', ...nonSpecialHeaders].join('#');
 
         let view: string;
         if (hasLinkName && canUseLinkName && link.textContent) {
@@ -95,12 +96,9 @@ export default class Replacer {
             // Specified separator or default separator
             const headerSeparator: string = specialHeaders.sep ?? settings.defaultHeaderSeparator;
 
-            removeBlockCircumflex(nonSpecialHeaders);
-
-            view = nonSpecialHeaders.join(headerSeparator);
+            view = removeBlockCircumflex(nonSpecialHeaders).join(headerSeparator);
         }
 
-        const dataHref: string = ['', ...nonSpecialHeaders].join('#');
         return {view, dataHref};
     }
 
@@ -133,12 +131,11 @@ export default class Replacer {
         }
 
         const { specialHeaders, nonSpecialHeaders }: LinkHeaders = parseHeaders(note.headers);
-
-        removeBlockCircumflex(nonSpecialHeaders);
-        const headerSeparator: string = specialHeaders.sep ?? settings.defaultHeaderSeparator;
-        view = [view, ...nonSpecialHeaders].join(headerSeparator);
-
         const dataHref: string = [fileName, ...nonSpecialHeaders].join('#');
+
+        const headerSeparator: string = specialHeaders.sep ?? settings.defaultHeaderSeparator;
+        view = [view, ...removeBlockCircumflex(nonSpecialHeaders)].join(headerSeparator);
+
         return {view, dataHref};
     }
 }
