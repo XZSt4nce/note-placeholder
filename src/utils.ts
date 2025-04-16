@@ -85,10 +85,12 @@ export const getNotes = (notesMap: Map<string, TFile>, links: Element[]): NoteLi
 export const removeBlockCircumflex = (headers: string[]) => {
 
     // Count of headers that begins with the character `^`
-    const blockHeaders = headers.filter((value: string) => value.startsWith('^')).length;
+    const blockHeaders = headers.filter((value: string) => value.startsWith('^'));
 
     // Remove the `^` character in the block header
-    if (blockHeaders === 1 && headers.length === 1) {
-        headers[0] = headers[0].slice(1);
+    if (blockHeaders.length === 1 && headers.length === 1) {
+        blockHeaders[0] = blockHeaders[0].slice(1);
     }
+
+    return blockHeaders;
 };
