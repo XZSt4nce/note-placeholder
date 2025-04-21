@@ -1,6 +1,6 @@
 {
 	"name": "note-placeholder",
-	"version": "2.1.9",
+	"version": "2.1.10",
 	"description": "Obsidian plugin developed by XZSt4nce; Replaces text of note link to placeholder in view mode",
 	"main": "main.js",
 	"scripts": {
