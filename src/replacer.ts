@@ -124,10 +124,12 @@ export default class Replacer {
         const placeholder: string | undefined = this.getPlaceholderProperty(note.file);
 
         let view: string;
-        if (placeholder && (noName || namesOff) && !placeholderDisabled) {
+        if (placeholderDisabled) {
+            view = fileName;
+        } else if (placeholder && (noName || namesOff)) {
             view = placeholder;
         } else {
-            view = fileName;
+            view = linkName.split(' > ')[0];
         }
 
         const { specialHeaders, nonSpecialHeaders }: LinkHeaders = parseHeaders(note.headers);
